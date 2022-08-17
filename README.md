@@ -46,7 +46,7 @@
     3)为拆除之后的 NCNN 主干网络添加定义后处理节点的 postpp.prototxt, 并将添加的 postpp.prototxt 与模型一同放置(见百度网盘)；
     4)在Compiler转换过程中, 文件目录结构如下：
     -->input
-        padded_img.jpg (举例: 对输入原始图片进行pad后的图片)
+        padded_img.jpg (举例: 对输入原始图片进行 pad 后的图片, pad 过程详见 data\data_augment.py 中 preproc() 函数, pad 过程所乘数值为 114.0)
         prepp_data1_1x416x416x3.bin (举例: 将pad后的图片进行flatten, 并保存为 .bin 格式作为输入)
     -->model
         model_fp32_with_Prepp_Postpp.param (添加前后处理的模型 param)
