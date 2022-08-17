@@ -45,16 +45,21 @@
     1)将上述 train 过程训练所得 model_best.pth 先使用 deployment\onnx\convert\pth2onnx.py 导出为 ONNX 模型;
     2)将转换得到的 ONNX 模型转换为 NCNN 模型，并将其中网络的后处理部分拆除, 以yolox-nano为例, 将节点 937,938,924,968,969,955,999,1000,986 之后的后处理操作相关节点全部拆除(拆除前后模型见下面百度网盘链接)；
     3)为拆除之后的 NCNN 主干网络添加定义后处理节点的 postpp.prototxt, 并将添加的 postpp.prototxt 与模型一同放置(见百度网盘)；
-    4)在Compiler转换过程中, 文件路径如下：
-        -->input
-            input_2e_1_1x416x416x3.bin
-        -->model
-            model_fp32.param
-            model_fp32.bin
-    	    postpp.prototxt
+    4)在Compiler转换过程中, 文件目录结构如下：
+    -->input
+        padded_img.jpg (举例: 对输入原始图片进行pad后的图片)
+        prepp_data1_1x416x416x3.bin (举例: 将pad后的图片进行flatten, 并保存为 .bin 格式作为输入)
+    -->model
+        model_fp32_with_Prepp_Postpp.param (添加前后处理的模型 param)
+        model_fp32_with_Prepp_Postpp.bin (添加前后处理的模型 bin)
+        prepp.prototxt (添加前处理节点)
+        postpp.prototxt (添加后处理节点)
+    -->model_best.pth (训练得到的 pytorch 模型)
+    -->model_best_sim.onnx (将 pytorch 模型转换为 ONNX)
+    -->拆除后处理节点前NCNN模型.param (和model中的模型进行比较, 查看针对前后处理的修改)
+    -->拆除后处理节点前NCNN模型.bin
     
     百度网盘链接：
     链接：https://pan.baidu.com/s/1s8Xb7mUpQR43JSunNhEj5g 
     提取码：7dz0 
-    --来自百度网盘超级会员V6的分享
     (pytorch 模型(pth), 转换得到的 ONNX 模型及 NCNN 模型，还有添加后处理节点的 postpp.prototxt)
