@@ -1,7 +1,6 @@
 ## NextVPU YOLOX
 
 ## 1. Environment
-
     pytorch>=1.7.0, python>=3.6, Ubuntu/Windows, see more in 'requirements.txt'
 
 ## 2. Dataset
